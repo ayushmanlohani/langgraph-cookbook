@@ -20,3 +20,28 @@ def first_node(state: OrderProcessing):
     return {
         "log": state["log"] + " Order Received"
     }
+
+
+def second_node(state: OrderProcessing):
+    print("-> Confirming order")
+    return {}
+
+# Okay so these are only steps in the workflow or as you say "NODES"
+# Now we gotta make the actual GRAPH
+
+
+workflow = StateGraph(OrderProcessing)
+
+# so we basically start the making process with command and now we have to add the nodes her
+# and these nodes are just present till now, they are not even conncted
+
+workflow.add_node("node_A", first_node)
+workflow.add_node("node_B", second_node)
+
+# now we will attach them with edges
+workflow.add_edge(START, "node_A")
+workflow.add_edge("node_A", "node_B")
+workflow.add_edge("node_B", END)
+
+# then we compile this badboy
+app = workflow.cmompile()
