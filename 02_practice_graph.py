@@ -18,7 +18,7 @@ class OrderProcessing(TypedDict):
 def first_node(state: OrderProcessing):
     print("We are in the fist node")
     return {
-        "log": state["log"] + " Order Received"
+        "log": state["log"] + [" Order Received"]
     }
 
 
@@ -44,4 +44,14 @@ workflow.add_edge("node_A", "node_B")
 workflow.add_edge("node_B", END)
 
 # then we compile this badboy
-app = workflow.cmompile()
+app = workflow.compile()
+
+# Now from here we give it starting data and basically this is our starting point
+
+starting_data = {
+    "order_id": "ORD-67",
+    "log": []
+}
+output = app.invoke(starting_data)
+
+print(output)
