@@ -46,3 +46,17 @@ workflow = StateGraph(OrderProcessing)
 workflow.add_node("node_a", first_node)
 workflow.add_node("node_b", second_node)
 workflow.add_node("reject_node", reject_node)
+
+# now the interesting part - THE GRAPH
+# so w'll start with normal node_a
+workflow.add_edge(START, "node_a")
+
+# now we bring the conditional one
+workflow.add_conditional_edges(
+    "node_a",
+    router,
+    {
+        "node_b": "node_b",
+        "node_reject": "node_reject"
+    }
+)
