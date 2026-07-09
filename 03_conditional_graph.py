@@ -57,6 +57,18 @@ workflow.add_conditional_edges(
     router,
     {
         "node_b": "node_b",
-        "node_reject": "node_reject"
+        "node_reject": "reject_node"
     }
 )
+
+workflow.add_edge("reject_node", END)
+workflow.add_edge("node_b", END)
+
+app = workflow.compile()
+starting_data = {
+    "order_id": "ORD-67",
+    "log": []
+}
+output = app.invoke(starting_data)
+
+print(output)
