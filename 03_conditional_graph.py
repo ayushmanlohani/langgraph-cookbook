@@ -29,3 +29,20 @@ def router(state: OrderProcessing) -> str:
         return "node_b"
     else:
         return "node_reject"
+
+# okay so maybe router is just deciding, this new node gonna actually reject that
+
+
+def reject_node(state: OrderProcessing) -> dict:
+    print("your order got rejected bruh~")
+    return {
+        "status": "rejected",
+        "log": state["log"] + ["order rejected"]
+    }
+
+
+workflow = StateGraph(OrderProcessing)
+
+workflow.add_node("node_a", first_node)
+workflow.add_node("node_b", second_node)
+workflow.add_node("reject_node", reject_node)
