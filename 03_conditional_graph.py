@@ -66,7 +66,7 @@ workflow.add_edge("node_b", END)
 
 app = workflow.compile()
 starting_data = {
-    "order_id": "ORD-67",
+    "order_id": "item-67",
     "log": []
 }
 output = app.invoke(starting_data)
