@@ -35,8 +35,8 @@ def temp_router(state: WeatherState):
 
 workflow = StateGraph(WeatherState)
 workflow.add_node("temp check karne wala node", fetch_temp_node)
-workflow.add_node("garam wala node": hot_node)
-workflow.add_node("thanda node": cold_node)
+workflow.add_node("garam wala node", hot_node)
+workflow.add_node("thanda node", cold_node)
 
 workflow.add_edge(START, "temp check karne wala node")
 
@@ -44,6 +44,18 @@ workflow.add_conditional_edges(
     "temp check karne wala node",
     temp_router,
     {
-
+        "hot": "hot_node",
+        "cold": "cold_node"
     }
 )
+
+workflow.add_edge("garam wala node", END)
+workflow.add_edge("thanda node", END)
+
+app = workflow.compile()
+starting_data = {
+    "city": "Lucknow"
+}
+
+output = app.invoke(starting_data)
+print(output)
