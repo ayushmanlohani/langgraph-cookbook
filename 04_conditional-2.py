@@ -13,7 +13,7 @@ class WeatherState(TypedDict):
 
 def fetch_temp_node(state: WeatherState):
     print("-> fetching temp")
-    return {"temp": 35}
+    return {"temp": 15}
 
 
 def hot_node(state: WeatherState):
@@ -44,8 +44,8 @@ workflow.add_conditional_edges(
     "temp check karne wala node",
     temp_router,
     {
-        "hot": "hot_node",
-        "cold": "cold_node"
+        "hot": "garam wala node",
+        "cold": "thanda node"
     }
 )
 
